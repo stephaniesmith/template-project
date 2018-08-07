@@ -10,7 +10,14 @@ let template = function() {
 
 export default class Counter {
     constructor(props) {
-        this.count = 0;
+        this.count = props.count;
+        this.onDecrement = props.onDecrement;
+        this.onIncrement = props.onIncrement;
+    }
+
+    update(props) {
+        this.count = props.count;
+        this.countSpan.textContent = this.count;
     }
 
     render() {
@@ -18,15 +25,13 @@ export default class Counter {
 
         const decrement = dom.querySelector('button.decrement');
         const increment = dom.querySelector('button.increment');
-        const countSpan = dom.querySelector('span');
+        this.countSpan = dom.querySelector('span');
 
         decrement.addEventListener('click', () => {
-            this.count --;
-            countSpan.innerText = this.count;
+            this.onDecrement();
         });
         increment.addEventListener('click', () => {
-            this.count ++;
-            countSpan.innerText = this.count;
+            this.onIncrement();
         });
 
 
